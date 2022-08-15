@@ -1,0 +1,5 @@
+emos:
+  jwt:
+    secret: abc123456
+    expire: 5
+    cache-expire: 10
