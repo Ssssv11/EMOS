@@ -1,0 +1,57 @@
+@import url("@/style.less");
+
+.register-img {
+	width: 70%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 80rpx;
+}
+
+.register-container {
+	width: 70%;
+	margin-top: 150rpx;
+	margin-left: auto;
+	margin-right: auto;
+	
+	.register-code {
+		border: solid 1rpx @border-solid;
+		border-radius: 25rpx;
+		font-size: 30rpx;
+		color: @font-color;
+		text-align: center;
+		background-color: #f5f5f5;
+		margin-bottom: 30rpx;
+		height: 80rpx;
+		padding: 0 20rpx;
+	}
+	
+	.register-desc {
+		color: @desc-color;
+		font-size: 25rpx;
+		line-height: 1.5;
+		margin-bottom: 80rpx;
+	}
+	
+	.register-btn {
+		background-color: @background-color;
+		color: #fff;
+		
+		&:active {
+			background-color: @background-color-active;
+		}
+	}
+}
+
+.login-text {
+	position: absolute;
+	bottom: 50rpx;
+	width: 100%;
+	text-align: center;
+	font-size: 30rpx;
+	color: @font-color;
+	.login {
+		color: @background-color;
+	}
+}
+
