@@ -1,0 +1,14 @@
+# tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 200
+      min-spare: 30
+    connection-timeout: 5000ms
+  port: 8999
+  servlet:
+    context-path: /emos-wx-api
+spring:
+  config:
+    import: application-secret.yaml
