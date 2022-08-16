@@ -114,6 +114,12 @@ public class OAuth2Filter extends AuthenticatingFilter {
 
     @Override
     public void doFilterInternal(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Credentials", "true");
+        resp.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
         super.doFilterInternal(request, response, chain);
     }
 

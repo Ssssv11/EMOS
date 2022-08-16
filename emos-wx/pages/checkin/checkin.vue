@@ -14,6 +14,8 @@
 </template>
 
 <script>
+	var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
+	var qqmapsdk;
 	export default {
 		data() {
 			return {
@@ -24,10 +26,15 @@
 				showImage: false
 			}
 		},
+		onLoad: function() {
+			qqmapsdk = new QQMapWX({
+				key: "7C7BZ-2Z7K6-AL3ST-EHNKN-XKOP7-USBLO"
+			})
+		},
 		methods: {
 			clickBtn: function() {
 				let that = this
-				if(that.btnText == '拍照') {
+				if (that.btnText == '拍照') {
 					let ctx = uni.createCameraContext();
 					ctx.takePhoto({
 						quality: "high",
@@ -40,7 +47,41 @@
 						}
 					})
 				} else {
-					
+					uni.showLoading({
+						title: "签到中"
+					})
+					setTimeout(function() {
+						uni.hideLoading()
+					}, 3000)
+					uni.getLocation({
+						type: "wgs84",
+
+						success: function(res) {
+							let latitude = res.latitude
+							let longitude = res.longitude
+							console.log(latitude)
+							console.log(longitude)
+							console.log("cg")
+							qqmapsdk.reverseGeocoder({
+								location: {
+									latitude: latitude,
+									longitude: longitude
+								},
+								success: function(resp) {
+									console.log(resp.result)
+									let address = resp.result.address
+									let addressComponent = resp.result.address_component
+									let nation = addressComponent.nation;
+									let province = addressComponent.province;
+									let city = addressComponent.city;
+									let district = addressComponent.district;
+								},
+								fail: function(res) {
+									console.log('fail', res)
+								}
+							})
+						}
+					})
 				}
 			},
 			afresh: function() {

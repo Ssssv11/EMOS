@@ -5,34 +5,36 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App
+	...App
 })
 
 app.$mount()
 
-let baseUrl = "http://localhost:8999/emos-wx-api"
+let baseUrl = "http://192.168.101.3:8999/emos-wx-api"
 Vue.prototype.url = {
 	register: baseUrl + "/user/register",
-	login: baseUrl + "/user/login"
+	login: baseUrl + "/user/login",
 }
 
-Vue.prototype.ajax = (url, method, data, fun) => {
+
+Vue.prototype.ajax = function(url, method, data, fun) {
 	uni.request({
 		"url": url,
 		"method": method,
 		"header": {
-			token: uni.getStorageSync('token')
+			token: uni.getStorageSync("token")
 		},
 		"data": data,
-		success: (resp) => {
-			if(resp.statusCode == 401) {
+		success: function(resp) {
+			if (resp.statusCode == 401) {
 				uni.redirectTo({
-					url: 'pages/login/login.vue'
+					url: "/pages/login/login.vue"
 				})
-			} else if(resp.statusCode == 200 && resp.data.code == 200) {
+			} else if (resp.statusCode == 200 && resp.data.code == 200) {
 				let data = resp.data
-				if(data.hasOwnProperty("token")) {
+				if (data.hasOwnProperty("token")) {
 					let token = data.token
+					// console.log(token)
 					uni.setStorageSync("token", token)
 				}
 				fun(resp)
@@ -42,6 +44,6 @@ Vue.prototype.ajax = (url, method, data, fun) => {
 					title: resp.data
 				})
 			}
-		}
+		},
 	})
 }

@@ -20,23 +20,23 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public String getParameter(String name) {
-        String value= super.getParameter(name);
-        if(!StrUtil.hasEmpty(value)){
-            value=HtmlUtil.filter(value);
+        String value = super.getParameter(name);
+        if (!StrUtil.hasEmpty(value)) {
+            value = HtmlUtil.filter(value);
         }
         return value;
     }
 
     @Override
     public String[] getParameterValues(String name) {
-        String[] values= super.getParameterValues(name);
-        if(values!=null){
-            for (int i=0;i<values.length;i++){
-                String value=values[i];
-                if(!StrUtil.hasEmpty(value)){
-                    value=HtmlUtil.filter(value);
+        String[] values = super.getParameterValues(name);
+        if (values != null) {
+            for (int i = 0; i < values.length; i++) {
+                String value = values[i];
+                if (!StrUtil.hasEmpty(value)) {
+                    value = HtmlUtil.filter(value);
                 }
-                values[i]=value;
+                values[i] = value;
             }
         }
         return values;
@@ -45,10 +45,10 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public Map<String, String[]> getParameterMap() {
         Map<String, String[]> parameters = super.getParameterMap();
-        LinkedHashMap<String, String[]> map=new LinkedHashMap();
-        if(parameters!=null){
-            for (String key:parameters.keySet()){
-                String[] values=parameters.get(key);
+        LinkedHashMap<String, String[]> map = new LinkedHashMap();
+        if (parameters != null) {
+            for (String key : parameters.keySet()) {
+                String[] values = parameters.get(key);
                 for (int i = 0; i < values.length; i++) {
                     String value = values[i];
                     if (!StrUtil.hasEmpty(value)) {
@@ -56,7 +56,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
                     }
                     values[i] = value;
                 }
-                map.put(key,values);
+                map.put(key, values);
             }
         }
         return map;
@@ -64,7 +64,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public String getHeader(String name) {
-        String value= super.getHeader(name);
+        String value = super.getHeader(name);
         if (!StrUtil.hasEmpty(value)) {
             value = HtmlUtil.filter(value);
         }
@@ -73,33 +73,32 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        InputStream in= super.getInputStream();
-        InputStreamReader reader=new InputStreamReader(in, Charset.forName("UTF-8"));
-        BufferedReader buffer=new BufferedReader(reader);
-        StringBuffer body=new StringBuffer();
-        String line=buffer.readLine();
-        while(line!=null){
+        InputStream in = super.getInputStream();
+        InputStreamReader reader = new InputStreamReader(in, Charset.forName("UTF-8"));
+        BufferedReader buffer = new BufferedReader(reader);
+        StringBuffer body = new StringBuffer();
+        String line = buffer.readLine();
+        while (line != null) {
             body.append(line);
-            line=buffer.readLine();
+            line = buffer.readLine();
         }
         buffer.close();
         reader.close();
         in.close();
-        Map<String,Object> map=JSONUtil.parseObj(body.toString());
-        Map<String,Object> result=new LinkedHashMap<>();
-        for(String key:map.keySet()){
-            Object val=map.get(key);
-            if(val instanceof String){
-                if(!StrUtil.hasEmpty(val.toString())){
-                    result.put(key,HtmlUtil.filter(val.toString()));
+        Map<String, Object> map = JSONUtil.parseObj(body.toString());
+        Map<String, Object> result = new LinkedHashMap<>();
+        for (String key : map.keySet()) {
+            Object val = map.get(key);
+            if (val instanceof String) {
+                if (!StrUtil.hasEmpty(val.toString())) {
+                    result.put(key, HtmlUtil.filter(val.toString()));
                 }
-            }
-            else {
-                result.put(key,val);
+            } else {
+                result.put(key, val);
             }
         }
-        String json=JSONUtil.toJsonStr(result);
-        ByteArrayInputStream bain=new ByteArrayInputStream(json.getBytes());
+        String json = JSONUtil.toJsonStr(result);
+        ByteArrayInputStream bain = new ByteArrayInputStream(json.getBytes());
         return new ServletInputStream() {
             @Override
             public int read() throws IOException {
