@@ -1,5 +1,8 @@
 package com.hjc.db.dao;
 
-public interface TbCityDao {
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
+public interface TbCityDao {
+    String searchCode(String city);
 }

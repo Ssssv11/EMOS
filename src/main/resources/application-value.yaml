@@ -3,3 +3,5 @@ emos:
     secret: abc123456
     expire: 5
     cache-expire: 10
+  email:
+    system: ssssv111@163.com

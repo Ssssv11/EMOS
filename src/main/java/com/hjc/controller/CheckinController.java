@@ -1,6 +1,7 @@
 package com.hjc.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.hjc.controller.form.CheckinForm;
 import com.hjc.service.CheckinService;
 import com.hjc.utils.JwtUtil;
 import com.hjc.utils.R;
@@ -8,10 +9,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/checkin")
@@ -30,4 +30,20 @@ public class CheckinController {
         String result = checkinService.validCanCheckIn(userId, DateUtil.today());
         return R.ok(result);
     }
+
+    @PostMapping("/checkin")
+    @ApiOperation("签到")
+    public R checkin(@RequestBody CheckinForm form, @RequestHeader("token") String token) {
+        int userId = jwtUtil.getUserId(token);
+        HashMap param = new HashMap();
+        param.put("userId", userId);
+        param.put("city", form.getCity());
+        param.put("district", form.getDistrict());
+        param.put("address", form.getAddress());
+        param.put("country", form.getCountry());
+        param.put("province", form.getProvince());
+        checkinService.checkin(param);
+        return new R();
+    }
+
 }

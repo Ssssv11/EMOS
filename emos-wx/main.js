@@ -14,6 +14,8 @@ let baseUrl = "http://192.168.101.3:8999/emos-wx-api"
 Vue.prototype.url = {
 	register: baseUrl + "/user/register",
 	login: baseUrl + "/user/login",
+	checkin: baseUrl + "/checkin/checkin",
+	validCheckIn: baseUrl + "/checkin/validCanCheckIn"
 }
 
 
