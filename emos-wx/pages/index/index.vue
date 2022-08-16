@@ -34,7 +34,7 @@
 		</view>
 		<view class="nav-container">
 			<view class="nav-row">
-				<view class="nav-col">
+				<view class="nav-col" @tap="toPage('在线签到', '../checkin/checkin')">
 					<image src="../../static/nav-1.png" mode="widthFix" class="nav-icon"></image>
 					<text class="nav-name">在线签到</text>
 				</view>
@@ -102,7 +102,11 @@
 
 		},
 		methods: {
-
+			toPage: function(name, url) {
+				uni.navigateTo({
+					url: url
+				})
+			}
 		}
 	}
 </script>
