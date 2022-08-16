@@ -17,7 +17,7 @@
 	export default {
 		data() {
 			return {
-				
+				registerCode: ""
 			}
 		},
 		methods: {
@@ -26,7 +26,21 @@
 					url:'/pages/login/login'
 				})
 			},
-			register: () => {
+			register: function() {
+				let that = this
+				if(that.registerCode == null || that.registerCode.length == 0) {
+					uni.showToast({
+						icon: "none",
+						title: "邀请码不能为空"
+					})
+					return
+				} else if(/^[0-9]{6}$/.test(that.registerCode) == false) {
+					uni.showToast({
+						icon: "none",
+						title: "邀请码为 6 位数字"
+					})
+					return
+				}
 				uni.login({
 					provider:'weixin',
 					success: (resp) => {
@@ -35,6 +49,17 @@
 							success: (resp) => {
 								let nickname = resp.userInfo.nickName;
 								let avatarUrl = resp.userInfo.avatarUrl;
+								let data = {
+									code: code,
+									nickname: nickname,
+									photo: avatarUrl,
+									registerCode: that.registerCode
+								}
+								that.ajax(that.url.register, "POST", data, (resp) => {
+									let permission = resp.data.permission
+									uni.setStorageSync("permission", permission)
+									console.log(permission)
+								})
 							}
 						})
 					}
