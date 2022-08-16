@@ -1,10 +1,9 @@
 package com.hjc.shiro;
 
+import com.hjc.db.pojo.TbUser;
+import com.hjc.service.UserService;
 import com.hjc.utils.JwtUtil;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -12,10 +11,14 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 @Component
 public class OAuth2Realm extends AuthorizingRealm {
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private UserService userService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -27,9 +30,11 @@ public class OAuth2Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection collection) {
+        TbUser user = (TbUser) collection.getPrimaryPrincipal();
+        int userId = user.getId();
+        Set<String> permsSet = userService.searchUserPermissions(userId);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        // TODO 查询用户的权限列表
-        // TODO 把权限列表添加到 info 对象中
+        info.setStringPermissions(permsSet);
         return info;
     }
 
@@ -38,9 +43,13 @@ public class OAuth2Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        // TODO 从令牌中获取 userId，检查该用户是否被冻结
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo();
-        // TODO 把用户信息与 Token 传入 info
+        String accessToken = (String)  token.getPrincipal();
+        int userId = jwtUtil.getUserId(accessToken);
+        TbUser user = userService.searchById(userId);
+        if (user == null) {
+            throw new LockedAccountException("账号已被锁定，请联系管理员");
+        }
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, getName());
         return info;
     }
 }

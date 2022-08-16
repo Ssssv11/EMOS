@@ -1,5 +1,6 @@
 package com.hjc.db.dao;
 
+import com.hjc.db.pojo.TbUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
@@ -12,4 +13,6 @@ public interface TbUserDao {
     Integer searchIdByOpenId(String openId);
 
     Set<String> searchUserPermissions(int userId);
+
+    TbUser searchById(int userId);
 }
