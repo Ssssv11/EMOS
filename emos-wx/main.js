@@ -12,7 +12,8 @@ app.$mount()
 
 let baseUrl = "http://localhost:8999/emos-wx-api"
 Vue.prototype.url = {
-	register: baseUrl + "/user/register"
+	register: baseUrl + "/user/register",
+	login: baseUrl + "/user/login"
 }
 
 Vue.prototype.ajax = (url, method, data, fun) => {

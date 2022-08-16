@@ -72,4 +72,15 @@ public class UserServiceImpl implements UserService {
     public Set<String> searchUserPermissions(int userId) {
         return userDao.searchUserPermissions(userId);
     }
+
+    @Override
+    public Integer login(String code) {
+        String openId = getOpenId(code);
+        Integer id = userDao.searchIdByOpenId(openId);
+        if (id == null) {
+            throw new EmosException("账户不存在");
+        }
+        // TODO 从消息队列中接受消息并转移到消息表
+        return id;
+    }
 }

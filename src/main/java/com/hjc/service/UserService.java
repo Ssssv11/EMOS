@@ -7,4 +7,6 @@ public interface UserService {
 
     Set<String> searchUserPermissions(int userId);
 
+    Integer login(String code);
+
 }

@@ -17,13 +17,37 @@
 	export default {
 		data() {
 			return {
-				
+
 			}
 		},
 		methods: {
 			toRegister: () => {
 				uni.navigateTo({
 					url: '/pages/register/register'
+				})
+			},
+			login: function() {
+				let that = this
+				uni.login({
+					provider: "weixin",
+					success: function(resp) {
+						let code = resp.code
+						that.ajax(that.url.login, "POST", {
+							"code": code
+						}, function(resp) {
+							let permission = resp.data.permission
+							uni.setStorageSync("permission", permission)
+							uni.switchTab({
+								url: "/pages/index/index"
+							})
+						})
+					},
+					fail: function(e) {
+						uni.showToast({
+							icon: "none",
+							title: "执行异常"
+						})
+					}
 				})
 			}
 		}

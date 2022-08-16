@@ -1,5 +1,6 @@
 package com.hjc.controller;
 
+import com.hjc.controller.form.LoginForm;
 import com.hjc.controller.form.RegisterForm;
 import com.hjc.service.UserService;
 import com.hjc.utils.JwtUtil;
@@ -40,6 +41,16 @@ public class UserController {
         Set<String> permsSet = userService.searchUserPermissions(id);
         saveCacheToken(token, id);
         return R.ok("注册成功").put("token", token).put("permission", permsSet);
+    }
+
+    @PostMapping("/login")
+    @ApiOperation("登录")
+    public R login(@Valid @RequestBody LoginForm form) {
+        int id = userService.login(form.getCode());
+        String token = jwtUtil.createToken(id);
+        saveCacheToken(token, id);
+        Set<String> permsSet = userService.searchUserPermissions(id);
+        return R.ok("登录成功").put("token", token).put("permission", permsSet);
     }
 
     private void saveCacheToken(String token, int userId) {

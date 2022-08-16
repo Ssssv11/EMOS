@@ -45,7 +45,9 @@
 					provider:'weixin',
 					success: (resp) => {
 						let code = resp.code;
+						console.log(code)
 						uni.getUserInfo({
+							provider: 'weixin',
 							success: (resp) => {
 								let nickname = resp.userInfo.nickName;
 								let avatarUrl = resp.userInfo.avatarUrl;
@@ -58,7 +60,9 @@
 								that.ajax(that.url.register, "POST", data, (resp) => {
 									let permission = resp.data.permission
 									uni.setStorageSync("permission", permission)
-									console.log(permission)
+									uni.switchTab({
+										url: "/pages/index/index"
+									})
 								})
 							}
 						})
