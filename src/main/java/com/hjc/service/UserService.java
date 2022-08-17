@@ -13,4 +13,6 @@ public interface UserService {
 
     TbUser searchById(int userId);
 
+    String searchUserHiredate(int userId);
+
 }
