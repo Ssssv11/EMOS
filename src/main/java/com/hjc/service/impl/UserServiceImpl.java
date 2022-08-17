@@ -94,4 +94,9 @@ public class UserServiceImpl implements UserService {
     public String searchUserHiredate(int userId) {
         return userDao.searchUserHiredate(userId);
     }
+
+    @Override
+    public HashMap searchUserSummary(int userId) {
+        return userDao.searchUserSummary(userId);
+    }
 }

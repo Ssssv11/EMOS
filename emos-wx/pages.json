@@ -3,7 +3,7 @@
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false
 			}
 
@@ -16,7 +16,7 @@
 		}, {
 			"path": "pages/register/register",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "注册",
 				"enablePullDownRefresh": false
 			}
 
@@ -53,7 +53,7 @@
 		, {
 			"path": "pages/checkin/checkin",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "在线签到",
 				"enablePullDownRefresh": false
 			}
 
@@ -62,11 +62,20 @@
             "path" : "pages/checkinResult/checkinResult",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "签到结果",
                 "enablePullDownRefresh": false
             }
             
         }
+		,{
+		    "path" : "pages/myCheckin/myCheckin",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的考勤",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

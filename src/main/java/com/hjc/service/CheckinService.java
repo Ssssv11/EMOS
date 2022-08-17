@@ -9,4 +9,5 @@ public interface CheckinService {
     HashMap searchTodayCheckin(int userId);
     long searchCheckinDays(int userId);
     ArrayList<HashMap> searchWeekCheckin(HashMap param);
+    ArrayList<HashMap> searchMonthCheckin(HashMap param);
 }

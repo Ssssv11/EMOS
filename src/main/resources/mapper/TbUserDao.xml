@@ -63,4 +63,10 @@
         SELECT hiredate FROM tb_user
         WHERE id=#{userId} AND status=1
     </select>
+
+    <select id="searchUserSummary" parameterType="int" resultType="HashMap">
+        SELECT u.name, u.photo, d.dept_name AS deptName
+        FROM tb_user u LEFT JOIN tb_dept d ON u.dept_id=d.id
+        WHERE u.id=#{userId} AND u.status=1
+    </select>
 </mapper>

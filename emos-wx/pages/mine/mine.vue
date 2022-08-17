@@ -25,7 +25,7 @@
 			<view class="list-title">用户信息栏目</view>
 			<uni-list>
 				<uni-list-item title="个人资料" link to=""></uni-list-item>
-				<uni-list-item title="我的考勤" link to="/pages/my_checkin/my_checkin"></uni-list-item>
+				<uni-list-item title="我的考勤" link to="/pages/myCheckin/myCheckin"></uni-list-item>
 				<uni-list-item title="罚款记录" link to=""></uni-list-item>
 			</uni-list>
 			<view class="list-title">系统管理栏目</view>
@@ -48,10 +48,19 @@
 		},
 		data() {
 			return {
-				name: "xxx",
-				deptName: "xxx",
-				photo: "https://ssssv-1311247406.cos.ap-chengdu.myqcloud.com/img/header/1348910.JPEG",
+				name: "",
+				deptName: "",
+				photo: "",
 			}
+		},
+		onShow:function(){
+			let that = this
+			that.ajax(that.url.searchUserSummary, "GET", null, function(resp){
+				let result = resp.data.result
+				that.name = result.name
+				that.deptName = result.deptName
+				that.photo = result.photo
+			})
 		},
 		methods: {
 			

@@ -11,9 +11,8 @@ public interface TbUserDao {
     boolean haveRootUser();
     int insert(HashMap param);
     Integer searchIdByOpenId(String openId);
-
     Set<String> searchUserPermissions(int userId);
-
     TbUser searchById(int userId);
     String searchUserHiredate(int userId);
+    HashMap searchUserSummary(int userId);
 }
