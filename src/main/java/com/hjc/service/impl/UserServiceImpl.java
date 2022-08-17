@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
         if (id == null) {
             throw new EmosException("账户不存在");
         }
-        messageTask.receiveAsync(id + "");
+//        messageTask.receiveAsync(id + "");
         return id;
     }
 

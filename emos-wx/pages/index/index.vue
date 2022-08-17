@@ -22,7 +22,7 @@
 					src="https://ssssv-1311247406.cos.ap-chengdu.myqcloud.com/img/banner/swiper-5.jpg"></image>
 			</swiper-item>
 		</swiper>
-		<view class="notify-container">
+		<view class="notify-container" @tap="toPage('消息提醒', '/pages/messageList/messageList')">
 			<view class="notify-title">
 				<image src="../../static/icon-1.png" mode="widthFix" class="notify-icon"></image>
 				消息提醒
@@ -115,6 +115,13 @@
 			let that = this
 			uni.$on("showMessage", function() {
 				that.$refs.popupMsg.open()
+			})
+			that.ajax(that.url.refreshMessage, "GET", null, function(resp) {
+				that.unreadRows = resp.data.unreadRows
+				that.lastRows = resp.data.lastRows
+				if(that.lastRows > 0) {
+					uni.$emit("showMessage")
+				}
 			})
 		},
 		onUnload() {
