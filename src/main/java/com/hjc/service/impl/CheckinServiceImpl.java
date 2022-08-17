@@ -68,11 +68,9 @@ public class CheckinServiceImpl implements CheckinService {
             DateTime attendanceEnd = DateUtil.parse(end);
             if (now.isBefore(attendanceStart)) {
                 return "未到上班考勤开始时间";
-            }
-//            else if (now.isAfter(attendanceEnd)) {
-//                return "超出上班考勤结束时间";
-//            }
-            else {
+            } else if (now.isAfter(attendanceEnd)) {
+                return "超出上班考勤结束时间";
+            } else {
                 HashMap map = new HashMap();
                 map.put("userId", userId);
                 map.put("date", date);
@@ -94,10 +92,9 @@ public class CheckinServiceImpl implements CheckinService {
             status = 1;
         } else if (d1.compareTo(d2) > 0 && d1.compareTo(d3) < 0) {
             status = 2;
+        } else {
+            throw new EmosException("超出考勤时间段，无法考勤");
         }
-//        else {
-//            throw new EmosException("超出考勤时间段，无法考勤");
-//        }
         int userId = (Integer) param.get("userId");
 
         //查询疫情风险等级
