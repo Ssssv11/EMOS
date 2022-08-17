@@ -1,12 +1,15 @@
 package com.hjc.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.hjc.db.dao.TbUserDao;
+import com.hjc.db.pojo.MessageEntity;
 import com.hjc.db.pojo.TbUser;
 import com.hjc.exception.EmosException;
 import com.hjc.service.UserService;
+import com.hjc.task.MessageTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TbUserDao userDao;
+
+    @Autowired
+    private MessageTask messageTask;
 
     private String getOpenId(String code) {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
@@ -61,7 +67,17 @@ public class UserServiceImpl implements UserService {
                 param.put("createTime", new Date());
                 param.put("root", true);
                 userDao.insert(param);
-                return userDao.searchIdByOpenId(openId);
+                int id = userDao.searchIdByOpenId(openId);
+
+                MessageEntity entity = new MessageEntity();
+                entity.setSenderId(0);
+                entity.setSenderName("系统消息");
+                entity.setUuid(IdUtil.simpleUUID());
+                entity.setMsg("欢迎您注册成为超级管理员，请及时更新你的员工个人信息。");
+                entity.setSendTime(new Date());
+                messageTask.sendAsync(id + "", entity);
+
+                return id;
             } else {
                 throw new EmosException("无法绑定超级管理员账号");
             }
@@ -81,7 +97,7 @@ public class UserServiceImpl implements UserService {
         if (id == null) {
             throw new EmosException("账户不存在");
         }
-        // TODO 从消息队列中接受消息并转移到消息表
+        messageTask.receiveAsync(id + "");
         return id;
     }
 

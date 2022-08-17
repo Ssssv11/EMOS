@@ -5,6 +5,7 @@ import com.hjc.controller.form.SearchMessageByIdForm;
 import com.hjc.controller.form.SearchMessageByPageForm;
 import com.hjc.controller.form.UpdateUnreadMessageForm;
 import com.hjc.service.MessageService;
+import com.hjc.task.MessageTask;
 import com.hjc.utils.JwtUtil;
 import com.hjc.utils.R;
 import io.swagger.annotations.Api;
@@ -25,6 +26,9 @@ public class MessageController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MessageTask messageTask;
 
     @PostMapping("/searchMessageByPage")
     @ApiOperation("获取分页消息列表")
@@ -56,5 +60,15 @@ public class MessageController {
     public R deleteMessageRefById(@Valid @RequestBody DeleteMessageRefByIdForm form) {
         long rows = messageService.deleteMessageRefById(form.getId());
         return R.ok().put("result", rows == 1 ? true : false);
+    }
+
+    @GetMapping("/refreshMessage")
+    @ApiOperation("刷新用户消息")
+    public R refreshMessage(@RequestHeader("token") String token) {
+        int userId = jwtUtil.getUserId(token);
+        messageTask.receiveAsync(userId + "");
+        long lastRows = messageService.searchLastCount(userId);
+        long unreadRows = messageService.searchUnreadCount(userId);
+        return R.ok().put("lastRows", lastRows).put("unreadRows", unreadRows);
     }
 }

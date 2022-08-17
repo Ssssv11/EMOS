@@ -61,10 +61,11 @@
 								}
 								that.ajax(that.url.register, "POST", data, function(resp) {
 									let permission = resp.data.permission
+									console.log(permission)
 									uni.setStorageSync("permission", permission)
 									console.log(permission)
 									uni.switchTab({
-										url: "../index/index"
+										url: "/pages/index/index"
 									})
 								})
 							}

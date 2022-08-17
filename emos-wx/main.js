@@ -19,6 +19,7 @@ Vue.prototype.url = {
 	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
 	searchUserSummary: baseUrl + "/user/searchUserSummary",
 	searchMonthCheckin: baseUrl + "/checkin/searchMonthCheckin",
+	refreshMessage: baseUrl + "/message/refreshMessage",
 }
 
 Vue.prototype.checkPermission = function(perms) {
