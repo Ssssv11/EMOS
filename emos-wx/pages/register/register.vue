@@ -3,7 +3,7 @@
 		<image src="../../static/logo-2.png" mode="widthFix" class="register-img"></image>
 		<view class="register-container">
 			<input class="register-code" type="text" placeholder="输入邀请码" maxlength="6" v-model="registerCode" />
-			<view class="register-desc">HR 创建员工账号后会向您发送注册邀请码邮件</view>
+			<view class="register-desc">普通员工邀请码为 333333</view>
 			<button class="register-btn" open-type="getUserInfo" @tap="register()">注册</button>
 		</view>
 		<view class="login-text">
@@ -61,9 +61,7 @@
 								}
 								that.ajax(that.url.register, "POST", data, function(resp) {
 									let permission = resp.data.permission
-									console.log(permission)
 									uni.setStorageSync("permission", permission)
-									console.log(permission)
 									uni.switchTab({
 										url: "/pages/index/index"
 									})

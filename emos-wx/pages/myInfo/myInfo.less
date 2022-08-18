@@ -1,0 +1,72 @@
+@import url("@/style.less");
+
+@import url("../../style.less");
+.photo{
+	margin-top: 50rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50rpx;
+	width: 230rpx;
+	height: 230rpx;
+	border-radius: 160rpx;
+	display: block;
+	border: solid 20rpx #ec7872;
+}
+
+.page{
+	padding: 35rpx 0;
+}
+.header{
+	position: relative;
+	padding: 0 35rpx;
+	.title{
+		border-bottom: solid 1rpx #f0f0f0;
+		padding: 30rpx 15rpx;
+		font-size: 34rpx;
+		font-weight: bold;
+		color: @background-color;
+	}
+	.title-placeholder{
+		font-size: 34rpx;
+	}
+	.edit-icon{
+		width: 40rpx;
+		position: absolute;
+		right: 45rpx;
+		top: 35rpx;
+	}
+}
+.attr{
+	padding: 0 35rpx;
+	border-bottom: solid 20rpx #FFF;
+	height: 100%;
+	.list{
+		.item{
+			padding: 30rpx 10rpx 30rpx 15rpx;
+			border-bottom: solid 1rpx #f0f0f0;
+			font-size: 30rpx;
+			color: @font-color;
+			display: flex;
+			justify-content: space-between;
+			.key{
+				font-weight: bold;
+			}
+			.value{
+				display: block;
+				color: @font-color;
+			}
+		}
+	}
+}
+
+.btn{
+	margin: 180rpx 35rpx 35rpx 55rpx;
+	background-color: @background-color;
+	color: #fff;
+	&:active{
+		background-color: @background-color-active;
+	}
+}

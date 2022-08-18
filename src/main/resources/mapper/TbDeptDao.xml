@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hjc.db.dao.TbDeptDao">
+    <select id="searchDeptMembers" parameterType="String" resultType="HashMap">
+        SELECT
+        d.id,
+        d.dept_name AS deptName,
+        COUNT(u.id) AS count
+        FROM tb_dept d LEFT JOIN tb_user u ON u.dept_id=d.id AND u.status=1
+        <if test="keyword!=null">
+            WHERE u.name LIKE '%${keyword}%'
+        </if>
+        GROUP BY d.id
+    </select>
+    <select id="searchAll" resultType="Hashmap">
+        select id as deptId, dept_name as deptName from tb_dept
+    </select>
 
 </mapper>

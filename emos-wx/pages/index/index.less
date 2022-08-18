@@ -70,3 +70,49 @@
 		}
 	}
 }
+
+.calendar-container {
+	margin-bottom: 20rpx;
+}
+.meeting-container {
+	background-color: #fff;
+	.meeting {
+		padding: 30rpx;
+		position: relative;
+		border-bottom: solid 20rpx #eeeef4;
+		.row {
+			display: flex;
+			margin-bottom: 15rpx;
+			&:first-child {
+				justify-content: space-between;
+			}
+			.title {
+				color: @font-color;
+				font-size: 34rpx;
+			}
+			.hours {
+				color: #dd524d;
+				font-size: 34rpx;
+			}
+			.desc {
+				font-size: 30rpx;
+				color: #999;
+			}
+			.icon {
+				width: 40rpx;
+				margin-right: 10rpx;
+				margin-top: 2rpx;
+			}
+		}
+		.photo {
+			width: 90rpx;
+			height: 90rpx;
+			border-radius: 45rpx;
+			position: absolute;
+			right: 30rpx;
+			top: 95rpx;
+			border: solid 6rpx #4caf50;
+			box-sizing: border-box;
+		}
+	}
+}

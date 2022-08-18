@@ -11,7 +11,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
 			}
 		}, {
 			"path": "pages/register/register",
@@ -27,21 +27,7 @@
 				"enablePullDownRefresh": false
 			}
 
-		}, {
-			"path": "pages/document/document",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/contacts/contacts",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
+		},{
 			"path": "pages/mine/mine",
 			"style": {
 				"navigationBarTitleText": "",
@@ -94,6 +80,60 @@
             }
             
         }
+        ,{
+            "path" : "pages/meeting/meeting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "会议详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/members/members",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择成员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myInfo/myInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/editMembers/editMembers",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "管理员工",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/editMemberInfo/editMemberInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "编辑员工信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/insertMember/insertMember",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增员工",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -109,24 +149,6 @@
 				"pagePath": "pages/index/index",
 				"iconPath": "static/bar-1.png",
 				"selectedIconPath": "static/bar-1-active.png"
-			},
-			{
-				"text": "会议",
-				"pagePath": "pages/meetingList/meetingList",
-				"iconPath": "static/bar-2.png",
-				"selectedIconPath": "static/bar-2-active.png"
-			},
-			{
-				"text": "文档",
-				"pagePath": "pages/document/document",
-				"iconPath": "static/bar-3.png",
-				"selectedIconPath": "static/bar-3-active.png"
-			},
-			{
-				"text": "通讯录",
-				"pagePath": "pages/contacts/contacts",
-				"iconPath": "static/bar-4.png",
-				"selectedIconPath": "static/bar-4-active.png"
 			},
 			{
 				"text": "我的",
