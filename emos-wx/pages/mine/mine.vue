@@ -29,7 +29,7 @@
 			<view class="list-title">系统管理栏目</view>
 			<uni-list>
 				<uni-list-item title="员工管理" v-show="checkPermission(['ROOT', 'EMPLOYEE:SELECT'])" link to="../editMembers/editMembers"></uni-list-item>
-				<uni-list-item title="部门管理" v-show="checkPermission(['ROOT', 'DEPT:SELECT'])" link to=""></uni-list-item>
+				<uni-list-item title="部门管理" v-show="checkPermission(['ROOT', 'DEPT:SELECT'])" link to="../deptList/deptList"></uni-list-item>
 				<uni-list-item title="权限管理" v-show="checkPermission(['ROOT', 'ROLE:SELECT'])" link to=""></uni-list-item>
 			</uni-list>
 		</view>

@@ -134,6 +134,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/deptList/deptList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "部门管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

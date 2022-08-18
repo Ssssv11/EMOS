@@ -15,5 +15,14 @@
     <select id="searchAll" resultType="Hashmap">
         select id as deptId, dept_name as deptName from tb_dept
     </select>
+    <update id="updateDeptById" parameterType="Hashmap">
+        update tb_dept set dept_name = #{deptName} where id = #{deptId}
+    </update>
+    <insert id="insertDept" parameterType="String">
+        insert into tb_dept(dept_name) values (#{deptName})
+    </insert>
+    <delete id="deleteDept" parameterType="int">
+        delete from tb_dept where id = #{deptId}
+    </delete>
 
 </mapper>

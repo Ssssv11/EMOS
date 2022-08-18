@@ -9,4 +9,10 @@ import java.util.HashMap;
 public interface TbDeptDao {
     ArrayList<HashMap> searchDeptMembers(String keyword);
     ArrayList<HashMap> searchAll();
+
+    int updateDeptById(HashMap param);
+
+    int insertDept(String deptName);
+
+    int deleteDept(int deptId);
 }
