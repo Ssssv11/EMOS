@@ -164,6 +164,25 @@ public class UserController {
         return R.ok().put("result", "success");
     }
 
+    @PostMapping("/searchUserRoleGroupByDept")
+    @ApiOperation("查询员工权限列表，按照部门分组排列")
+    @RequiresPermissions(value = {"ROOT", "MEETING:INSERT"}, logical = Logical.OR)
+    public R searchUserRoleGroupByDept(@Valid @RequestBody SearchUserGroupByDeptForm form) {
+        ArrayList<HashMap> list = userService.searchUserRoleGroupByDept(form.getKeyword());
+        return R.ok().put("result", list);
+    }
+
+    @PostMapping("/updateUserRole")
+    @ApiOperation("更新用户权限")
+    @RequiresPermissions(value = {"ROOT", "MEETING:INSERT"}, logical = Logical.OR)
+    public R updateUserRole(@Valid @RequestBody UpdateUserRoleForm form) {
+        HashMap param = new HashMap();
+        param.put("userId", form.getUserId());
+        param.put("role", "[" + form.getRole() + "]");
+        userService.updateUserRole(param);
+        return R.ok().put("result", "success");
+    }
+
     private void saveCacheToken(String token, int userId) {
         redisTemplate.opsForValue().set(token, userId + "", cacheExpire, TimeUnit.DAYS);
     }

@@ -35,4 +35,12 @@ public interface UserService {
     void delMember(int userId);
 
     void insertMember(HashMap param);
+
+    ArrayList<HashMap> searchUserRoleGroupByDept(String keyword);
+
+    void updateUserRole(HashMap param);
+
+    String selectUserPhoto(int userId);
+
+    String selectUserName(int userId);
 }

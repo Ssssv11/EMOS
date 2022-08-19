@@ -1,10 +1,11 @@
 package com.hjc.controller;
 
-import com.hjc.controller.form.DeleteMessageRefByIdForm;
-import com.hjc.controller.form.SearchMessageByIdForm;
-import com.hjc.controller.form.SearchMessageByPageForm;
-import com.hjc.controller.form.UpdateUnreadMessageForm;
+import cn.hutool.core.util.IdUtil;
+import com.hjc.controller.form.*;
+import com.hjc.db.pojo.MessageEntity;
+import com.hjc.db.pojo.MessageRefEntity;
 import com.hjc.service.MessageService;
+import com.hjc.service.UserService;
 import com.hjc.task.MessageTask;
 import com.hjc.utils.JwtUtil;
 import com.hjc.utils.R;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class MessageController {
 
     @Autowired
     private MessageTask messageTask;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/searchMessageByPage")
     @ApiOperation("获取分页消息列表")
@@ -70,5 +75,29 @@ public class MessageController {
         long lastRows = messageService.searchLastCount(userId);
         long unreadRows = messageService.searchUnreadCount(userId);
         return R.ok().put("lastRows", lastRows).put("unreadRows", unreadRows);
+    }
+
+    @PostMapping("/sendMessage")
+    @ApiOperation("发送消息")
+    public R sendMessage(@Valid @RequestBody SendMessageForm form, @RequestHeader("token") String token) {
+        int userId = jwtUtil.getUserId(token);
+        for (int member : form.getMembers()) {
+            MessageEntity message = new MessageEntity();
+            message.setUuid(IdUtil.simpleUUID());
+            message.setSenderId(userId);
+            message.setSenderName(userService.selectUserName(userId));
+            message.setMsg(form.getText());
+            message.setSendTime(new Date());
+            message.setSenderPhoto(userService.selectUserPhoto(userId));
+            String id = messageService.insertMessage(message);
+
+            MessageRefEntity ref = new MessageRefEntity();
+            ref.setMessageId(id);
+            ref.setReadFlag(false);
+            ref.setLastFlag(true);
+            ref.setReceiverId(member);
+            messageService.insertRef(ref);
+        }
+        return R.ok().put("result", "success");
     }
 }

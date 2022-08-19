@@ -38,6 +38,10 @@
 					<image src="../../static/nav-6.png" mode="widthFix" class="nav-icon"></image>
 					<text class="nav-name">我的考勤</text>
 				</view>
+				<view class="nav-col" @tap="toPage('发送通知', '../sendMessage/sendMessage')">
+					<image src="../../static/nav-9.png" mode="widthFix" class="nav-icon"></image>
+					<text class="nav-name">发送通知</text>
+				</view>
 			</view>
 		</view>
 		<view class="calendar-container">

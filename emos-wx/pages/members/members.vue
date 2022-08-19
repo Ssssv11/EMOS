@@ -16,26 +16,7 @@
 export default {
 	data() {
 		return {
-			list: [{
-				id: 1,
-				deptName: "管理部",
-				count: 2,
-				members: [
-					{userId: 20, name: "Ceye", checked: true},
-					{userId: 21, name: "Ninn", checked: false},
-				]
-			},
-			{
-				id: 2,
-				deptName: "技术部",
-				count: 3,
-				members: [
-					{userId: 23, name: "Ceye", checked: false},
-					{userId: 24, name: "Akki", checked: false},
-					{userId: 25, name: "Den", checked: false},
-				]
-			}
-			],
+			list: [],
 			members: []
 		};
 	},

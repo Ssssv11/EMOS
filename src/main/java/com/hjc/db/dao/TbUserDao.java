@@ -47,4 +47,11 @@ public interface TbUserDao {
     int delMember(int userId);
 
     int insertMember(HashMap param);
+
+    ArrayList<HashMap> searchUserRoleGroupByDept(String keyword);
+
+    int updateUserRole(HashMap param);
+
+    String selectUserPhoto(int userId);
+    String selectUserName(int userId);
 }

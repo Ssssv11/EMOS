@@ -205,4 +205,40 @@ public class UserServiceImpl implements UserService {
             throw new EmosException("添加失败");
         }
     }
+
+    @Override
+    public ArrayList<HashMap> searchUserRoleGroupByDept(String keyword) {
+        ArrayList<HashMap> list_1 = deptDao.searchDeptMembers(keyword);
+        ArrayList<HashMap> list_2 = userDao.searchUserRoleGroupByDept(keyword);
+        for (HashMap map_1 : list_1) {
+            long deptId = (Long) map_1.get("id");
+            ArrayList members = new ArrayList();
+            for (HashMap map_2 : list_2) {
+                long id = (Long) map_2.get("deptId");
+                if (deptId == id) {
+                    members.add(map_2);
+                }
+            }
+            map_1.put("members", members);
+        }
+        return list_1;
+    }
+
+    @Override
+    public void updateUserRole(HashMap param) {
+        int row =  userDao.updateUserRole(param);
+        if (row != 1) {
+            throw new EmosException("更新失败");
+        }
+    }
+
+    @Override
+    public String selectUserPhoto(int userId) {
+        return userDao.selectUserPhoto(userId);
+    }
+
+    @Override
+    public String selectUserName(int userId) {
+        return userDao.selectUserName(userId);
+    }
 }

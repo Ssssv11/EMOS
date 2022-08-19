@@ -143,6 +143,33 @@
             }
             
         }
+        ,{
+            "path" : "pages/editRole/editRole",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "权限管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/rolePage/rolePage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "编辑权限",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/sendMessage/sendMessage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
