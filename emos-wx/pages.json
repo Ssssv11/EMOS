@@ -170,6 +170,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/addRole/addRole",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

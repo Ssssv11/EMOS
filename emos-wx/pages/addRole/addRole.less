@@ -1,0 +1,38 @@
+@import url("@/style.less");
+
+.page{
+	padding: 35rpx 0;
+}
+
+.attr{
+	.title {
+		margin-top: 55rpx;
+		text-align: center;
+		font-weight: bold;
+		margin-bottom: 55rpx;
+		font-size: 32rpx;
+		color: @background-color;
+	}
+	padding: 0 35rpx;
+	border-bottom: solid 20rpx #FFF;
+	height: 100%;
+	.list{
+		.item{
+			padding: 50rpx 10rpx 30rpx 15rpx;
+			border-bottom: solid 1rpx #f0f0f0;
+			font-size: 30rpx;
+			color: @font-color;
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}
+
+.btn{
+	margin: 180rpx 35rpx 35rpx 55rpx;
+	background-color: @background-color;
+	color: #fff;
+	&:active{
+		background-color: @background-color-active;
+	}
+}

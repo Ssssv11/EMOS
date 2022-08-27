@@ -10,8 +10,8 @@ const app = new Vue({
 
 app.$mount()
 
-let baseUrl = "http://192.168.101.5:8999/emos-wx-api"
-// let baseUrl = "http://172.20.10.10:8999/emos-wx-api"
+// let baseUrl = "http://192.168.101.5:8999/emos-wx-api"
+let baseUrl = "http://172.20.10.10:8999/emos-wx-api"
 Vue.prototype.url = {
 	register: baseUrl + "/user/register",
 	login: baseUrl + "/user/login",
@@ -47,6 +47,7 @@ Vue.prototype.url = {
 	selectRole: baseUrl + "/role/selectRole",
 	updateUserRole: baseUrl + "/user/updateUserRole",
 	sendMessage: baseUrl + "/message/sendMessage",
+	searchAllPermission: baseUrl + "/permission/selectAll",
 }
 
 Vue.prototype.checkPermission = function(perms) {

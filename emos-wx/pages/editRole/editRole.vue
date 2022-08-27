@@ -1,7 +1,6 @@
 <template>
 	<view class="page">
-		<view class="add" v-if="checkPermission(['ROOT', 'MEETING:INSERT'])"
-		@tap="toInsertRolePage()">
+		<view class="add" v-if="checkPermission(['ROOT', 'MEETING:INSERT'])" @tap="toAddRolePage()">
 			<image src="../../static/icon-17.png" mode="widthFix" class="icon"></image>
 			<text>添加权限</text>
 		</view>
@@ -43,6 +42,11 @@ export default {
 		toRolePage: function(id, role) {
 			uni.navigateTo({
 				url: "../rolePage/rolePage?id=" + id + "&role=" + role
+			})
+		},
+		toAddRolePage: function() {
+			uni.navigateTo({
+				url: "../addRole/addRole"
 			})
 		}
 	}
