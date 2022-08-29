@@ -4,4 +4,9 @@
     <select id="selectRole" resultType="Hashmap">
         select id, role_name as roleName from tb_role
     </select>
+
+    <insert id="addRole" parameterType="hashmap">
+        insert into tb_role(role_name, permissions)
+        values (#{roleName}, #{permissions})
+    </insert>
 </mapper>

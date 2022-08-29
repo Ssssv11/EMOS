@@ -165,7 +165,7 @@
             "path" : "pages/sendMessage/sendMessage",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "发送消息",
                 "enablePullDownRefresh": false
             }
             
@@ -174,7 +174,7 @@
             "path" : "pages/addRole/addRole",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "添加角色",
                 "enablePullDownRefresh": false
             }
             

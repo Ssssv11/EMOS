@@ -1,9 +1,12 @@
 <template>
 	<view>
 		<view class="attr">
-			<view class="title">权限列表</view>
+			<view class="header">
+				<image src="../../static/icon-18.png" mode="widthFix" class="edit-icon"></image>
+				<input type="text" class="title" v-model="title" placeholder="输入权限名称" placeholder-class="title-placeholder" />
+			</view>
 			<view class="list">
-				<checkbox-group @change="radioChange">
+				<checkbox-group @change="checkboxChange">
 					<label class="item" v-for="(item, index) in items" :key="item.id">
 						<view>
 							<checkbox :value="item.id" :disabled="item.id == 0"/>
@@ -22,28 +25,22 @@
 		data() {
 			return {
 				items: [],
-				current: null,
 				roleId: null,
-				userId: null,
-				role: ""
+				role: "",
+				roles: [],
+				title: ""
 			}
 		},
 		onLoad (options) {
-			this.userId = options.id
 			this.role = options.role
 		},
 		onShow() {
 			this.loadData(this)
 		},
 		methods: {
-			radioChange: function(evt) {
-				for (let i = 0; i < this.items.length; i++) {
-					if (this.items[i].id == evt.detail.value) {
-						this.current = i;
-						this.roleId = this.items[i].id
-						break;
-					}
-				}
+			checkboxChange: function(e) {
+				this.roles = e.detail.value
+				console.log(this.roles)
 			},
 			loadData: function(ref) {
 				ref.ajax(ref.url.searchAllPermission, "GET", null, function(resp) {
@@ -53,12 +50,14 @@
 			},
 			save: function(resp) {
 				let that = this
-				let data = {
-					userId: that.userId,
-					role: that.roleId
+				if(that.checkBlank(that.title, "权限名称")) {
+					return
 				}
-				console.log(that.role)
-				that.ajax(that.url.updateUserRole, "POST", data, function(resp) {
+				let data = {
+					roleName: that.title,
+					permissions: that.roles
+				}
+				that.ajax(that.url.addRole, "POST", data, function(resp) {
 					uni.showToast({
 						icon: "success",
 						title: "修改成功",

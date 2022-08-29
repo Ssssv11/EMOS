@@ -17,4 +17,9 @@ public class RoleServiceImpl implements RoleService {
     public ArrayList<HashMap> selectRole() {
         return roleDao.selectRole();
     }
+
+    @Override
+    public void addRole(HashMap param) {
+        roleDao.addRole(param);
+    }
 }

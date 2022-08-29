@@ -8,4 +8,6 @@ import java.util.HashMap;
 @Mapper
 public interface TbRoleDao {
     ArrayList<HashMap> selectRole();
+
+    int addRole(HashMap param);
 }

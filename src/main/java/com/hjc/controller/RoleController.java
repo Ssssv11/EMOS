@@ -1,14 +1,15 @@
 package com.hjc.controller;
 
+import cn.hutool.json.JSONUtil;
+import com.hjc.controller.form.AddRoleForm;
 import com.hjc.service.RoleService;
 import com.hjc.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,5 +25,16 @@ public class RoleController {
     public R selectRole() {
         ArrayList<HashMap> map = roleService.selectRole();
         return R.ok().put("result", map);
+    }
+
+    @PostMapping("/addRole")
+    @ApiOperation("添加权限角色")
+    public R addRole(@Valid @RequestBody AddRoleForm form) {
+        HashMap param = new HashMap();
+        param.put("roleName", form.getRoleName());
+        param.put("permissions", JSONUtil.toJsonStr(form.getPermissions()).replaceAll("\"", ""));
+        System.out.println(param);
+        roleService.addRole(param);
+        return R.ok().put("result", "success");
     }
 }
